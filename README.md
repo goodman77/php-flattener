@@ -11,7 +11,7 @@ Features:
 ## Installation
 
 ```bash
-composer require your-namespace/php-flattener
+composer require app/php-flattener
 
 ## Usage
 <?php
