@@ -1,0 +1,19 @@
+{
+    "name": "app/flattener",
+    "description": "A simp[le PHP cod to of arbitrarily nested arrays of integers into ategers into a flat array of integers",
+    "type": "project",
+    "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10"
+  },
+  "require": {}
+}
