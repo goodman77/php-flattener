@@ -16,7 +16,7 @@ class ArrayFlattenerTest extends TestCase
         $input = [1, [2, [3, 4]], 5];
         $expected = [1, 2, 3, 4, 5];
 
-        $this->assertSame($expected, $flattener->flatten($input));
+        $this->assertSame($expected, $flattener->flattenArray($input));
     }
 
     public function testFlattenSkipsNonIntegers(): void
@@ -25,7 +25,7 @@ class ArrayFlattenerTest extends TestCase
         $input = [1, "foo", [2.5, [3, null]]];
         $expected = [1, 3];
 
-        $this->assertSame($expected, $flattener->flatten($input));
+        $this->assertSame($expected, $flattener->flattenArray($input));
     }
 
     public function testFlattenUnique(): void
@@ -34,7 +34,7 @@ class ArrayFlattenerTest extends TestCase
         $input = [1, 2, [3, 2, 1], 4];
         $expected = [1, 2, 3, 4];
 
-        $this->assertSame($expected, $flattener->flatten($input));
+        $this->assertSame($expected, $flattener->flattenArray($input));
     }
 
     public function testFlattenDeeplyNested(): void
@@ -43,7 +43,7 @@ class ArrayFlattenerTest extends TestCase
         $input = [[[[[[1]]]]], 2, [[3]]];
         $expected = [1, 2, 3];
 
-        $this->assertSame($expected, $flattener->flatten($input));
+        $this->assertSame($expected, $flattener->flattenArray($input));
     }
 
     public function testFlattenEmptyArray(): void
@@ -52,7 +52,7 @@ class ArrayFlattenerTest extends TestCase
         $input = [];
         $expected = [];
 
-        $this->assertSame($expected, $flattener->flatten($input));
+        $this->assertSame($expected, $flattener->flattenArray($input));
     }
 
     public function testFlattenAllNonIntegers(): void
@@ -61,7 +61,7 @@ class ArrayFlattenerTest extends TestCase
         $input = ["a", null, [false, [3.14]]];
         $expected = [];
 
-        $this->assertSame($expected, $flattener->flatten($input));
+        $this->assertSame($expected, $flattener->flattenArray($input));
     }
 
     public function testExceedMaxDepthThrows(): void
@@ -79,7 +79,7 @@ class ArrayFlattenerTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage("Array nesting exceeds maximum depth of 10");
 
-        $flattener->flatten($tooDeep);
+        $flattener->flattenArray($tooDeep);
     }
 
     public function testMaxDepthExact(): void
@@ -94,6 +94,6 @@ class ArrayFlattenerTest extends TestCase
         $flattener = new ArrayFlattener(maxDepth: 10);
 
         // Should not throw, returns empty array
-        $this->assertSame([], $flattener->flatten($exactDepth));
+        $this->assertSame([], $flattener->flattenArray($exactDepth));
     }
 }

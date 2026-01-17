@@ -28,12 +28,12 @@ class ArrayFlattener
      * @param array<mixed> $input
      * @return array<int>
      */
-    public function flatten(array $input): array
+    public function flattenArray(array $input): array
     {
         $result = [];
         $seen = [];
 
-        $this->flattenRecursive($input, $result, $seen, 0);
+        $this->recursiveFlatten($input, $result, $seen, 0);
 
         return $this->unique ? array_keys($seen) : $result;
     }
@@ -47,7 +47,7 @@ class ArrayFlattener
      * @param int $depth
      * @throws InvalidArgumentException if depth exceeds maxDepth
      */
-    private function flattenRecursive(array $array, array &$result, array &$seen, int $depth): void
+    private function recursiveFlatten(array $array, array &$result, array &$seen, int $depth): void
     {
         if ($depth > $this->maxDepth) {
             throw new InvalidArgumentException(
@@ -57,7 +57,7 @@ class ArrayFlattener
 
         foreach ($array as $item) {
             if (is_array($item)) {
-                $this->flattenRecursive($item, $result, $seen, $depth + 1);
+                $this->recursiveFlatten($item, $result, $seen, $depth + 1);
             } elseif (is_int($item)) {
                 if ($this->unique) {
                     if (!isset($seen[$item])) {
